@@ -25,13 +25,17 @@ app.get("/", (req, res) => res.send("홈 화면"));
 app.post("/register", (req, res) => {
     const user = new User(req.body);
 
-    user.save()
-        .then(() => {
-            return res.send("회원가입 성공");
-        })
-        .catch((err) => {
-            return console.log(err);
+    user.save((err) => {
+        if (err)
+            return res.json({
+                joinSuccess: false,
+                err,
+            });
+
+        return res.status(200).json({
+            joinSuccess: true,
         });
+    });
 });
 
 app.listen(PORT, (req, res) => console.log(`${PORT} PORT Server Start`));
