@@ -42,6 +42,7 @@ app.post("/register", (req, res) => {
 });
 app.post("/login", (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
+        console.log(user);
         if (!user) return res.json({ loginSuccess: false });
 
         user.comparePassword(req.body.password, (err, isMatch) => {
@@ -66,6 +67,13 @@ app.get("/auth", auth, (req, res) => {
         lastname: req.user.lastemail,
         role: req.user.role,
         image: req.user.image,
+    });
+});
+
+app.get("/logout", auth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+        if (err) return res.json({ success: false });
+        res.status(200).json({ success: true });
     });
 });
 
