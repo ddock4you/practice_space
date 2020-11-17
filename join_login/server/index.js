@@ -26,6 +26,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => res.send("홈 화면"));
+app.get("/hello", (req, res) => {
+    res.send("헬로우우우");
+});
 app.post("/register", (req, res) => {
     const user = new User(req.body);
     user.save((err) => {
