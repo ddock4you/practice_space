@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 app.get("/", (req, res) => res.send("홈 화면"));
 app.get("/api/hello", (req, res) => res.send("헬로우우우"));
-app.post("/register", (req, res) => {
+app.post("/api/register", (req, res) => {
     const user = new User(req.body);
     user.save((err) => {
         if (err)
@@ -41,7 +41,7 @@ app.post("/register", (req, res) => {
         });
     });
 });
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
         console.log(user);
         if (!user) return res.json({ loginSuccess: false });
@@ -59,7 +59,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.get("/auth", auth, (req, res) => {
+app.get("/api/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
@@ -71,7 +71,7 @@ app.get("/auth", auth, (req, res) => {
     });
 });
 
-app.get("/logout", auth, (req, res) => {
+app.get("/api/logout", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
         if (err) return res.json({ success: false });
         res.status(200).json({ success: true });
