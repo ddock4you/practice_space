@@ -1,0 +1,12 @@
+html
+    head
+    body
+        - const node = "node.js";
+        h1 유저 #{title} #{user}
+        input(placeholder="연습" + title + node)
+        p= "<strong>이스케이프</strong>"
+        p!= "<strong>이스케이프</strong>"
+        ul
+            each fruit, i in ['사과', '배', '오렌지', '바나나', '복숭아']
+                li(class="#{i}") 번째 #{fruit}
+        

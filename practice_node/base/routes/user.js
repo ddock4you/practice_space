@@ -3,11 +3,12 @@ const router = express.Router();
 
 // GET
 router.get("/", (req, res) => {
-    res.send("Hello, User");
+    res.render("body");
 });
 
 router.get("/:id", (req, res) => {
-    res.send(`hello ${req.params.id} 유저`);
+    res.locals.title = "타이틀";
+    res.render("user", { user: req.params.id });
     console.log(req.params, req.query);
 });
 

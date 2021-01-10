@@ -43,6 +43,8 @@ const upload = multer({
 });
 
 app.set("port", process.env.PORT || 3001);
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 app.use(morgan("dev"));
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.json());
@@ -61,16 +63,15 @@ app.use(
     })
 );
 
-// app.use((req, res, next) => {
-//     console.log('모든 요청에 다 실행됩니다.');
-//     next();
-// });
-
 // router
 app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use((req, res, next) => {
-    res.status(404).send("Not Found");
+    res.status(404).render("error", {
+        message: "error",
+        error: { status: res.statusCode, stack: "stack" },
+    });
+    console.log(res);
 });
 
 router.get("/upload", (req, res) => {
