@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>유저 페이지</title>
+</head>
+
+<body>
+    {% set node = 'Node.js' %}
+    {% set javascript = 'Javascript' %}
+    <h1>유저
+        {{ title }}
+        {{ user }}</h1>
+    <input type='text' placeholder='연습 {{ title }} {{ node }}' />
+    <p>{{ '<strong>이스케이프</strong>' }}</p>
+    <p>{{ '<strong>이스케이프</strong>'|safe }}</p>
+    <ul>
+        {% set fruit = ['사과', '배', '오렌지', '바나나', '복숭아'] %}
+        {% for item in fruit %}
+        <li>{{ loop.index }}
+            {{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
+<!-- ['사과', '배', '오렌지', '바나나', '복숭아'] -->
